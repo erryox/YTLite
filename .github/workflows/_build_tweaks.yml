@@ -102,6 +102,15 @@ jobs:
             exit 1
           fi
 
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Patch YTLite (remove Patreon lock)
+        run: |
+          if [ -f "ytplus.deb" ]; then
+            python3 .github/workflows/patch_ytlite.py ytplus.deb ytplus.deb
+          fi
+
       - name: Clone YouTubeHeader
         if: ${{ inputs.enable_youpip || inputs.enable_ytuhd || inputs.enable_yq || inputs.enable_ryd || inputs.enable_ytabc || inputs.enable_demc }}
         run: |
